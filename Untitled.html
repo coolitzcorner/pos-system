@@ -1,0 +1,451 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2575.7">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="en"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;title&gt;🍽️ BitePOS · Food Business&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, system-ui, sans-serif; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>body { background: #f4f7fb; min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.pos-container { max-width: 1400px; width: 100%; background: white; border-radius: 40px; box-shadow: 0 25px 50px -10px rgba(0,0,0,0.2); overflow: hidden; display: flex; flex-direction: column; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.pos-header { background: #1e293b; color: white; padding: 20px 28px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.pos-header h1 { font-weight: 600; font-size: 1.8rem; display: flex; align-items: center; gap: 12px; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.pos-header h1 i { color: #facc15; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.pos-header .order-stats { background: #334155; padding: 10px 22px; border-radius: 50px; font-size: 0.95rem; display: flex; align-items: center; gap: 25px; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.pos-header .order-stats span { display: flex; align-items: center; gap: 8px; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.pos-header .order-stats i { color: #94a3b8; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.badge-count { background: #facc15; color: #0f172a; font-weight: 700; padding: 0 10px; border-radius: 30px; font-size: 0.85rem; line-height: 22px; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.pos-grid { display: grid; grid-template-columns: 1fr 380px; gap: 0; background: #f8fafc; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>@media (max-width: 960px) { .pos-grid { grid-template-columns: 1fr; } }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.menu-panel { padding: 24px 24px 30px; background: white; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.panel-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.panel-header h2 { font-size: 1.1rem; color: #1e293b; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.btn-inventory { background: #e9edf2; border: none; padding: 8px 16px; border-radius: 30px; font-weight: 600; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: 0.2s; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.btn-inventory:hover { background: #d6dce4; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.category-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; border-bottom: 1px solid #e9edf2; padding-bottom: 16px; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.category-btn { background: transparent; border: none; padding: 10px 18px; border-radius: 40px; font-weight: 600; font-size: 0.9rem; color: #475569; transition: 0.2s; cursor: pointer; display: flex; align-items: center; gap: 8px; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.category-btn i { font-size: 1rem; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.category-btn.active { background: #1e293b; color: white; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.category-btn:hover:not(.active) { background: #eef2f6; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 16px; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.menu-item { background: #ffffff; border: 1px solid #eef2f6; border-radius: 24px; padding: 18px 12px 14px; text-align: center; transition: 0.2s ease; cursor: pointer; box-shadow: 0 4px 8px rgba(0,0,0,0.02); position: relative; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.menu-item:hover:not(.out-of-stock) { transform: translateY(-3px); border-color: #cbd5e1; box-shadow: 0 12px 20px -12px rgba(0,0,0,0.15); }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.menu-item.out-of-stock { opacity: 0.5; cursor: not-allowed; filter: grayscale(0.3); }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.menu-item .stock-badge { position: absolute; top: 8px; right: 8px; background: #1e293b; color: white; font-size: 0.6rem; padding: 2px 8px; border-radius: 20px; font-weight: 600; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.menu-item .stock-badge.low { background: #dc2626; animation: pulse 1s infinite; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.menu-item .stock-badge.medium { background: #f59e0b; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.menu-item .emoji-big { font-size: 2.8rem; display: block; margin-bottom: 6px; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.menu-item .item-name { font-weight: 600; font-size: 0.95rem; color: #0f172a; margin: 6px 0 2px; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.menu-item .item-price { font-weight: 700; color: #0f172a; background: #f1f5f9; display: inline-block; padding: 2px 14px; border-radius: 30px; font-size: 0.9rem; margin-top: 6px; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.menu-item .item-category-badge { font-size: 0.65rem; text-transform: uppercase; background: #e9edf2; padding: 2px 10px; border-radius: 30px; color: #475569; display: inline-block; margin-top: 4px; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.cart-panel { background: #f8fafc; border-left: 1px solid #e2e8f0; padding: 24px 18px 20px; display: flex; flex-direction: column; height: 100%; min-height: 600px; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.cart-panel h2 { font-size: 1.3rem; display: flex; justify-content: space-between; color: #1e293b; font-weight: 600; margin-bottom: 20px; align-items: center; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.cart-panel h2 i { color: #64748b; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.cart-list { flex: 1; overflow-y: auto; padding-right: 4px; margin-bottom: 16px; max-height: 400px; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.cart-item { background: white; border-radius: 20px; padding: 14px 16px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 6px rgba(0,0,0,0.02); border: 1px solid #eef2f6; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.cart-item-left { display: flex; flex-direction: column; gap: 4px; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.cart-item-name { font-weight: 600; color: #0f172a; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.cart-item-meta { font-size: 0.8rem; color: #64748b; display: flex; gap: 10px; align-items: center; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.cart-item-actions { display: flex; align-items: center; gap: 12px; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.qty-btn { background: #f1f5f9; border: none; width: 28px; height: 28px; border-radius: 30px; font-weight: 700; font-size: 1rem; cursor: pointer; transition: 0.15s; color: #1e293b; display: inline-flex; justify-content: center; align-items: center; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.qty-btn:hover { background: #e2e8f0; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.qty-num { font-weight: 600; min-width: 24px; text-align: center; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.remove-item { color: #94a3b8; background: transparent; border: none; font-size: 1.1rem; cursor: pointer; padding: 0 4px; transition: 0.2s; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.remove-item:hover { color: #dc2626; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.cart-total { background: white; border-radius: 28px; padding: 18px 20px; margin-top: 8px; border: 1px solid #e2e8f0; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.total-row { display: flex; justify-content: space-between; font-weight: 600; font-size: 1.3rem; color: #0f172a; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.total-row small { font-weight: 400; font-size: 0.85rem; color: #475569; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.cart-actions { display: flex; gap: 12px; margin-top: 18px; flex-wrap: wrap; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.btn-primary, .btn-secondary, .btn-danger { flex: 1; padding: 16px 12px; border: none; border-radius: 60px; font-weight: 700; font-size: 1rem; display: flex; justify-content: center; align-items: center; gap: 10px; cursor: pointer; transition: 0.2s; min-width: 100px; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.btn-primary { background: #1e293b; color: white; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.btn-primary:hover { background: #0f172a; transform: scale(0.97); }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.btn-secondary { background: #e9edf2; color: #1e293b; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.btn-secondary:hover { background: #d6dce4; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.btn-danger { background: #fee2e2; color: #b91c1c; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.btn-danger:hover { background: #fecaca; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.payment-method { display: flex; gap: 8px; margin-top: 10px; justify-content: flex-end; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.payment-method button { background: #f1f5f9; border: 1px solid transparent; padding: 6px 14px; border-radius: 40px; font-size: 0.8rem; font-weight: 600; color: #334155; cursor: pointer; transition: 0.1s; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.payment-method button.active-method { background: #1e293b; color: white; border-color: #1e293b; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.empty-cart-msg { text-align: center; color: #94a3b8; padding: 50px 10px; font-style: italic; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.toast-message { background: #1e293b; color: white; padding: 12px 25px; border-radius: 60px; position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); font-weight: 500; z-index: 999; box-shadow: 0 10px 30px rgba(0,0,0,0.3); display: flex; align-items: center; gap: 12px; opacity: 0; transition: opacity 0.2s; pointer-events: none; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.toast-message.show { opacity: 1; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.footer-note { padding: 12px 28px; background: #f1f5f9; color: #475569; font-size: 0.8rem; display: flex; justify-content: space-between; border-top: 1px solid #e2e8f0; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.saving-spinner { display: inline-block; animation: spin 1s linear infinite; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.modal-overlay.active { display: flex; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.modal { background: white; border-radius: 30px; padding: 30px; max-width: 800px; width: 95%; max-height: 80vh; overflow-y: auto; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid #e9edf2; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.modal-header h2 { font-size: 1.4rem; color: #1e293b; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.modal-close { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #94a3b8; padding: 0 10px; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.modal-close:hover { color: #1e293b; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.inventory-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>@media (max-width: 600px) { .inventory-grid { grid-template-columns: 1fr; } }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.inventory-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: #f8fafc; border-radius: 16px; border: 1px solid #eef2f6; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.inventory-item .item-info { display: flex; align-items: center; gap: 10px; flex: 1; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.inventory-item .item-info .emoji { font-size: 1.5rem; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.inventory-item .item-info .name { font-weight: 600; font-size: 0.85rem; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.inventory-item .stock-control { display: flex; align-items: center; gap: 8px; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.inventory-item .stock-control input { width: 60px; padding: 4px 8px; border: 1px solid #d6dce4; border-radius: 8px; text-align: center; font-weight: 600; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.inventory-item .stock-control input:focus { outline: 2px solid #1e293b; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.modal-actions { display: flex; gap: 12px; margin-top: 20px; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.btn-update-stock, .btn-reset-stock { flex: 1; padding: 12px 24px; border: none; border-radius: 30px; font-weight: 600; cursor: pointer; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.btn-update-stock { background: #1e293b; color: white; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.btn-update-stock:hover { background: #0f172a; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.btn-reset-stock { background: #fee2e2; color: #b91c1c; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.btn-reset-stock:hover { background: #fecaca; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p1">&lt;div class="pos-container"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;header class="pos-header"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;h1&gt;&lt;i class="fas fa-utensils"&gt;&lt;/i&gt; BitePOS&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="order-stats"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;span&gt;&lt;i class="fas fa-shopping-bag"&gt;&lt;/i&gt; Items &lt;span class="badge-count" id="cartCountHeader"&gt;0&lt;/span&gt;&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;span&gt;&lt;i class="fas fa-coins"&gt;&lt;/i&gt; Total &lt;span id="totalHeader"&gt;₱0.00&lt;/span&gt;&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/header&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="pos-grid"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="menu-panel"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="panel-header"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;h2&gt;&lt;i class="fas fa-utensils"&gt;&lt;/i&gt; Menu&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="btn-inventory" id="inventoryBtn"&gt;&lt;i class="fas fa-boxes"&gt;&lt;/i&gt; Manage Stock&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="category-tabs" id="categoryTabs"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="category-btn active" data-category="all"&gt;&lt;i class="fas fa-th"&gt;&lt;/i&gt; All&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="category-btn" data-category="silog"&gt;&lt;i class="fas fa-egg"&gt;&lt;/i&gt; Silog&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="category-btn" data-category="hotdog"&gt;&lt;i class="fas fa-hotdog"&gt;&lt;/i&gt; Hotdog&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="category-btn" data-category="burger"&gt;&lt;i class="fas fa-hamburger"&gt;&lt;/i&gt; Burgers&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="category-btn" data-category="noodles"&gt;&lt;i class="fas fa-utensil-spoon"&gt;&lt;/i&gt; Noodles&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="category-btn" data-category="addons"&gt;&lt;i class="fas fa-plus-circle"&gt;&lt;/i&gt; Add-ons&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="category-btn" data-category="drinks"&gt;&lt;i class="fas fa-glass-martini-alt"&gt;&lt;/i&gt; Drinks&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="menu-grid" id="menuGrid"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="cart-panel"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;h2&gt;&lt;span&gt;&lt;i class="fas fa-shopping-cart"&gt;&lt;/i&gt; Order&lt;/span&gt; &lt;span id="cartItemCount"&gt;0&lt;/span&gt;&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cart-list" id="cartList"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="empty-cart-msg"&gt;&lt;i class="fas fa-egg" style="font-size: 2rem; display: block; margin-bottom: 10px;"&gt;&lt;/i&gt; Your cart is empty&lt;br&gt;&lt;span style="font-size:0.8rem;"&gt;Add items from the menu&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cart-total"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="total-row"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;span&gt;Total&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;span id="cartTotalAmount"&gt;₱0.00&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div style="display: flex; gap: 12px; margin-top: 12px; flex-wrap: wrap;"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="payment-method" id="paymentMethod"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;button class="active-method" data-method="cash"&gt;&lt;i class="fas fa-money-bill-wave"&gt;&lt;/i&gt; Cash&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;button data-method="card"&gt;&lt;i class="fas fa-credit-card"&gt;&lt;/i&gt; Card&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;button data-method="gcash"&gt;&lt;i class="fas fa-mobile-alt"&gt;&lt;/i&gt; GCash&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cart-actions"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="btn-primary" id="checkoutBtn"&gt;&lt;i class="fas fa-check-circle"&gt;&lt;/i&gt; Checkout&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="btn-secondary" id="clearCartBtn"&gt;&lt;i class="fas fa-trash-alt"&gt;&lt;/i&gt; Clear&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div style="margin-top: 8px; display: flex; gap: 8px;"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="btn-danger" id="sampleOrderBtn" style="flex:1; padding: 10px;"&gt;&lt;i class="fas fa-plus-circle"&gt;&lt;/i&gt; Sample order&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="footer-note"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;span&gt;&lt;i class="fas fa-store-alt"&gt;&lt;/i&gt; BitePOS · Food Business&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;span id="orderCountDisplay"&gt;Orders today: 0&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;div class="modal-overlay" id="inventoryModal"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="modal"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="modal-header"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;h2&gt;&lt;i class="fas fa-boxes"&gt;&lt;/i&gt; Inventory Management&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;button class="modal-close" id="closeModal"&gt;&amp;times;&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div style="margin-bottom: 16px; color: #64748b; font-size: 0.9rem;"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;i class="fas fa-info-circle"&gt;&lt;/i&gt; Set your current stock quantities below. Stock will auto-deduct when orders are placed.</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="inventory-grid" id="inventoryGrid"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="modal-actions"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;button class="btn-update-stock" id="updateStockBtn"&gt;&lt;i class="fas fa-save"&gt;&lt;/i&gt; Update Stock&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;button class="btn-reset-stock" id="resetStockBtn"&gt;&lt;i class="fas fa-undo"&gt;&lt;/i&gt; Reset to Default&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;div id="toast" class="toast-message"&gt;&lt;i class="fas fa-bell"&gt;&lt;/i&gt; &lt;span id="toastText"&gt;Ready&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;script&gt;</p>
+<p class="p1">(function(){</p>
+<p class="p1"><span class="Apple-converted-space">  </span>"use strict";</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>// === REPLACE THIS URL WITH YOUR GOOGLE APPS SCRIPT URL ===</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbwZZDPfgtxL3-5rL6GAxg7Kp0zgTP68oohfvwvW1z5KHUEOelFPkcVAPUJ4URCjmcQN/exec';</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>const DEFAULT_STOCK = {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>1: 50, 2: 50, 3: 50, 4: 50, 5: 50, 6: 50, 7: 50,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>8: 100, 9: 100, 10: 100, 11: 100,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>12: 80, 13: 80, 14: 80,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>15: 60, 16: 40, 17: 40,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>18: 200, 19: 200, 20: 150, 21: 200,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>22: 120, 23: 200, 24: 120, 25: 120</p>
+<p class="p1"><span class="Apple-converted-space">  </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>const menuItems = [</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ id: 1, name: "Bacsilog", price: 90, category: "silog", emoji: "🥓🍚" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ id: 2, name: "Hotsilog", price: 75, category: "silog", emoji: "🌭🍚" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ id: 3, name: "Cornsilog", price: 75, category: "silog", emoji: "🌽🍚" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ id: 4, name: "Hungsilog", price: 100, category: "silog", emoji: "🌭🍚" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ id: 5, name: "Hamsilog", price: 70, category: "silog", emoji: "🍖🍚" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ id: 6, name: "Tocilog", price: 90, category: "silog", emoji: "🥩🍚" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ id: 7, name: "Tapsilog", price: 100, category: "silog", emoji: "🥩🍚" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ id: 8, name: "Hotdog on Stick", price: 28, category: "hotdog", emoji: "🌭" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ id: 9, name: "Hotdog on Bun", price: 38, category: "hotdog", emoji: "🌭" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ id: 10, name: "Hungarian on Stick", price: 38, category: "hotdog", emoji: "🌭" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ id: 11, name: "Hungarian on Bun", price: 45, category: "hotdog", emoji: "🌭" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ id: 12, name: "B1T1 Burger", price: 55, category: "burger", emoji: "🍔" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ id: 13, name: "B1T1 Chicken Burger", price: 60, category: "burger", emoji: "🍔🐔" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ id: 14, name: "B1T1 Bacon Burger", price: 120, category: "burger", emoji: "🥓🍔" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ id: 15, name: "Pancit Canton", price: 30, category: "noodles", emoji: "🍜" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ id: 16, name: "Samyang Plain", price: 110, category: "noodles", emoji: "🍜🔥" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ id: 17, name: "Samyang Cheesy", price: 120, category: "noodles", emoji: "🧀🍜" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ id: 18, name: "Cheese Slice", price: 8, category: "addons", emoji: "🧀" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ id: 19, name: "Egg", price: 15, category: "addons", emoji: "🥚" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ id: 20, name: "Cheese Sauce", price: 20, category: "addons", emoji: "🧀" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ id: 21, name: "Rice", price: 20, category: "addons", emoji: "🍚" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ id: 22, name: "C2", price: 23, category: "drinks", emoji: "🧃" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ id: 23, name: "Water", price: 15, category: "drinks", emoji: "💧" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ id: 24, name: "Coke Mismo", price: 25, category: "drinks", emoji: "🥤" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ id: 25, name: "Mountain Dew", price: 25, category: "drinks", emoji: "🥤" }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>];</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>let cart = [];</p>
+<p class="p1"><span class="Apple-converted-space">  </span>let selectedCategory = 'all';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>let totalOrders = 0;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>let currentPaymentMethod = 'cash';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>let isProcessing = false;</p>
+<p class="p2"><span class="Apple-converted-space">  </span></p>
+<p class="p1"><span class="Apple-converted-space">  </span>let inventoryData = menuItems.map(item =&gt; ({</p>
+<p class="p1"><span class="Apple-converted-space">    </span>...item,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>stock: DEFAULT_STOCK[item.id] || 0</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}));</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>const menuGrid = document.getElementById('menuGrid');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const cartList = document.getElementById('cartList');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const cartTotalAmount = document.getElementById('cartTotalAmount');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const cartItemCount = document.getElementById('cartItemCount');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const cartCountHeader = document.getElementById('cartCountHeader');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const totalHeader = document.getElementById('totalHeader');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const orderCountDisplay = document.getElementById('orderCountDisplay');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const toast = document.getElementById('toast');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const toastText = document.getElementById('toastText');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const checkoutBtn = document.getElementById('checkoutBtn');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const inventoryModal = document.getElementById('inventoryModal');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const inventoryGrid = document.getElementById('inventoryGrid');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const closeModal = document.getElementById('closeModal');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const inventoryBtn = document.getElementById('inventoryBtn');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const updateStockBtn = document.getElementById('updateStockBtn');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const resetStockBtn = document.getElementById('resetStockBtn');</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>function saveInventory() {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>try {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const stockData = {};</p>
+<p class="p1"><span class="Apple-converted-space">      </span>inventoryData.forEach(item =&gt; { stockData[item.id] = item.stock; });</p>
+<p class="p1"><span class="Apple-converted-space">      </span>localStorage.setItem('pos_inventory', JSON.stringify(stockData));</p>
+<p class="p1"><span class="Apple-converted-space">    </span>} catch(e) {}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>function loadInventory() {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>try {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const saved = localStorage.getItem('pos_inventory');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (saved) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const stockData = JSON.parse(saved);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>inventoryData.forEach(item =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>if (stockData[item.id] !== undefined) item.stock = stockData[item.id];</p>
+<p class="p1"><span class="Apple-converted-space">        </span>});</p>
+<p class="p1"><span class="Apple-converted-space">        </span>return true;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return false;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>} catch(e) { return false; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (!loadInventory()) saveInventory();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>function renderMenu(category = 'all') {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const filtered = category === 'all' ? inventoryData : inventoryData.filter(item =&gt; item.category === category);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>menuGrid.innerHTML = filtered.map(item =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const outOfStock = item.stock &lt;= 0;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const stockClass = outOfStock ? 'out-of-stock' : '';</p>
+<p class="p1"><span class="Apple-converted-space">      </span>let stockBadgeClass = '';</p>
+<p class="p1"><span class="Apple-converted-space">      </span>let stockLabel = `${item.stock}`;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (item.stock &lt;= 0) { stockBadgeClass = 'low'; stockLabel = 'OUT'; }</p>
+<p class="p1"><span class="Apple-converted-space">      </span>else if (item.stock &lt;= 10) { stockBadgeClass = 'low'; }</p>
+<p class="p1"><span class="Apple-converted-space">      </span>else if (item.stock &lt;= 30) { stockBadgeClass = 'medium'; }</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return `&lt;div class="menu-item ${stockClass}" data-id="${item.id}"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;span class="stock-badge ${stockBadgeClass}"&gt;${stockLabel}&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;span class="emoji-big"&gt;${item.emoji}&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-name"&gt;${item.name}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-price"&gt;₱${item.price}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-category-badge"&gt;${item.category}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;`;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}).join('');</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.querySelectorAll('.menu-item:not(.out-of-stock)').forEach(el =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>el.addEventListener('click', function() {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const id = parseInt(this.dataset.id);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const menuItem = inventoryData.find(m =&gt; m.id === id);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (menuItem &amp;&amp; menuItem.stock &gt; 0) addToCart(menuItem);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>else if (menuItem) showToast(`⚠️ ${menuItem.name} is out of stock!`, 'warning');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>});</p>
+<p class="p1"><span class="Apple-converted-space">    </span>});</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>function addToCart(item) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const stockItem = inventoryData.find(i =&gt; i.id === item.id);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (!stockItem || stockItem.stock &lt;= 0) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>showToast(`⚠️ ${item.name} is out of stock!`, 'warning');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const existing = cart.find(c =&gt; c.id === item.id);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const currentQty = existing ? existing.qty : 0;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (currentQty &gt;= stockItem.stock) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>showToast(`⚠️ Not enough stock for ${item.name}. Only ${stockItem.stock} left.`, 'warning');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (existing) existing.qty += 1;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>else cart.push({ ...item, qty: 1 });</p>
+<p class="p1"><span class="Apple-converted-space">    </span>updateCartUI();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>showToast(`➕ ${item.name} added`, 'success');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>function removeFromCart(id) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const index = cart.findIndex(c =&gt; c.id === id);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (index !== -1) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const removed = cart[index];</p>
+<p class="p1"><span class="Apple-converted-space">      </span>cart.splice(index, 1);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>updateCartUI();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>showToast(`🗑️ ${removed.name} removed`, 'info');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>function changeQty(id, delta) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const item = cart.find(c =&gt; c.id === id);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (!item) return;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const stockItem = inventoryData.find(i =&gt; i.id === id);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const newQty = item.qty + delta;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (newQty &lt;= 0) { removeFromCart(id); return; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (newQty &gt; stockItem.stock) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>showToast(`⚠️ Not enough stock. Only ${stockItem.stock} left.`, 'warning');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>item.qty = newQty;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>updateCartUI();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>function clearCart() {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (cart.length === 0) { showToast('Cart is already empty', 'info'); return; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>cart = [];</p>
+<p class="p1"><span class="Apple-converted-space">    </span>updateCartUI();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>showToast('🧹 Cart cleared', 'info');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>function getTotal() { return cart.reduce((sum, item) =&gt; sum + (item.price * item.qty), 0); }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>function getTotalItems() { return cart.reduce((sum, item) =&gt; sum + item.qty, 0); }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>function updateCartUI() {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (cart.length === 0) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>cartList.innerHTML = `&lt;div class="empty-cart-msg"&gt;&lt;i class="fas fa-egg" style="font-size: 2rem; display: block; margin-bottom: 10px;"&gt;&lt;/i&gt; Your cart is empty&lt;br&gt;&lt;span style="font-size:0.8rem;"&gt;Add items from the menu&lt;/span&gt;&lt;/div&gt;`;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>cartList.innerHTML = cart.map(item =&gt; `</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="cart-item" data-id="${item.id}"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="cart-item-left"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;span class="cart-item-name"&gt;${item.emoji} ${item.name}&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="cart-item-meta"&gt;&lt;span&gt;₱${item.price}&lt;/span&gt;&lt;span&gt;·&lt;/span&gt;&lt;span&gt;${item.category}&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="cart-item-actions"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;button class="qty-btn" data-action="decr" data-id="${item.id}"&gt;−&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;span class="qty-num"&gt;${item.qty}&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;button class="qty-btn" data-action="incr" data-id="${item.id}"&gt;+&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;button class="remove-item" data-action="remove" data-id="${item.id}"&gt;&lt;i class="fas fa-times"&gt;&lt;/i&gt;&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>`).join('');</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.querySelectorAll('.cart-item').forEach(el =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const id = parseInt(el.dataset.id);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>el.querySelector('[data-action="incr"]')?.addEventListener('click', (e) =&gt; { e.stopPropagation(); changeQty(id, 1); });</p>
+<p class="p1"><span class="Apple-converted-space">        </span>el.querySelector('[data-action="decr"]')?.addEventListener('click', (e) =&gt; { e.stopPropagation(); changeQty(id, -1); });</p>
+<p class="p1"><span class="Apple-converted-space">        </span>el.querySelector('[data-action="remove"]')?.addEventListener('click', (e) =&gt; { e.stopPropagation(); removeFromCart(id); });</p>
+<p class="p1"><span class="Apple-converted-space">      </span>});</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>const total = getTotal();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const totalItems = getTotalItems();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>cartTotalAmount.textContent = `₱${total.toFixed(2)}`;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>cartItemCount.textContent = totalItems;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>cartCountHeader.textContent = totalItems;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>totalHeader.textContent = `₱${total.toFixed(2)}`;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>async function checkout() {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (isProcessing) return;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (cart.length === 0) { showToast('⚠️ Cart is empty!', 'warning'); return; }</p>
+<p class="p2"><span class="Apple-converted-space">    </span></p>
+<p class="p1"><span class="Apple-converted-space">    </span>const total = getTotal();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const method = currentPaymentMethod.toUpperCase();</p>
+<p class="p2"><span class="Apple-converted-space">    </span></p>
+<p class="p1"><span class="Apple-converted-space">    </span>// Deduct stock</p>
+<p class="p1"><span class="Apple-converted-space">    </span>let hasError = false;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const stockUpdates = {};</p>
+<p class="p1"><span class="Apple-converted-space">    </span>cart.forEach(cartItem =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const stockItem = inventoryData.find(i =&gt; i.id === cartItem.id);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (stockItem) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (stockItem.stock &gt;= cartItem.qty) {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>stockItem.stock -= cartItem.qty;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>stockUpdates[cartItem.id] = stockItem.stock;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>hasError = true;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>showToast(`⚠️ Not enough stock for ${cartItem.name}`, 'warning');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (hasError) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>// Revert stock</p>
+<p class="p1"><span class="Apple-converted-space">      </span>cart.forEach(cartItem =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const stockItem = inventoryData.find(i =&gt; i.id === cartItem.id);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (stockItem) {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>stockItem.stock += cartItem.qty;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>});</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>saveInventory();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>const orderData = {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>orderId: 'ORD-' + Date.now().toString(36).toUpperCase(),</p>
+<p class="p1"><span class="Apple-converted-space">      </span>paymentMethod: method,</p>
+<p class="p1"><span class="Apple-converted-space">      </span>totalAmount: total,</p>
+</body>
+</html>
